@@ -1,0 +1,68 @@
+# Verific daca numele fisierului este "passwd"
+if [ "$(basename "$1")" != "passwd" ]; then
+    echo "Error: File name must be 'passwd'"
+    exit 1
+fi
+
+# 1. Printeaza directorul home
+echo "1. Home directory:"
+awk -F: '{print $6}' "$1"
+read -p "Press Enter to continue..."
+
+# 2. Listeaza toti utilizatorii
+echo "2. List of usernames:"
+awk -F: '{print $1}' "$1"
+read -p "Press Enter to continue..."
+
+
+# 3. Numara utilizatorii
+echo "3. Number of users:"
+awk -F: 'END {print NR}' "$1"
+read -p "Press Enter to continue..."
+
+# 4. Gaseste directorul home al unui utilizator specific
+read -p "4. Enter username to find home directory: " username
+user_home=$(grep "^$username:" "$1" | cut -d: -f6)
+if [ -n "$user_home" ]; then
+    echo "Home directory of $username: $user_home"
+else
+    echo "User $username not found"
+fi
+read -p "Press Enter to continue..."
+
+
+# 5. Listeaza utilizatorii cu un interval UID specific
+read -p "5. Enter UID range (e.g. 1000-1010): " uid_range
+echo "Users with UID in range $uid_range:"
+awk -F: -v min=$(echo "$uid_range" | cut -d- -f1) -v max=$(echo "$uid_range" | cut -d- -f2) '$3 >= min && $3 <= max {print $1}' "$1"
+read -p "Press Enter to continue..."
+
+# 6. Gaseste utilizatorii cu shell-uri standard
+echo "6. Users with standard shells (/bin/bash or /bin/sh):"
+awk -F: '$7 ~ "/bin/bash|/bin/sh" {print $1}' "$1"
+read -p "Press Enter to continue..."
+
+# 7. Inlocuiește caracterul "/" cu "\" în întregul fisier /etc/passwd și redirectionează continutul intr-un fisier nou
+echo "7. Replacing '/' with '\' in /etc/passwd file..."
+sed 's/\//\\/g' "$1" > "${1}_new"
+echo "Content replaced and redirected to ${1}_new"
+read -p "Press Enter to continue..."
+
+# 8. Printeaza IP-ul privat
+echo "8. Private IP:"
+hostname -I
+read -p "Press Enter to continue..."
+
+# 9. Printeaza IP-ul public
+echo "9. Public IP:"
+curl -s https://ifconfig.me/ip
+read -p "Press Enter to continue..."
+
+# 10. Schimba utilizatorul la john
+echo "10. Switching to john user..."
+su - john
+read -p "Press Enter to continue..."
+
+# 11. Printeaza directorul home
+echo "11. Home directory (after switching to john user):"
+echo $HOME

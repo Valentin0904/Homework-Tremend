@@ -17,3 +17,4 @@ Initially, the command didn't work because line 53 was wrong as it should have b
 4) "USE company;": This command is used to select the "company" database for executing subsequent commands.
 "SELECT department, AVG(salary) AS average_salary FROM employees GROUP BY department;": This command is used to calculate the average salary for each department from the "employees"
 table in the "company" database.
+  

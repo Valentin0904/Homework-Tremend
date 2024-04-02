@@ -1,0 +1,8 @@
+Pull the Ubuntu image from Docker Hub: " docker pull ubuntu" 
+Start a container based on the Ubuntu image: "docker run -it --name my_linux_container ubuntu"
+Inside the container, create a new user "john": "adduser john" 
+Copy the create_large_file.sh script to the container : "docker cp /C:/Users/valii/Desktop/Useful-Resources/1-linux/create_large_file.sh my_linux_container:/create_large_file.sh
+Run the script inside the container: "bash create_large_file.sh"
+
+In nano i write the script nano passwd_script.sh
+Run the script : "./manipulate_passwd.sh" 

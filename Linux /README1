@@ -1,0 +1,9 @@
+"docker pull ubuntu:latest"  Download the Ubuntu image
+ "docker run -it --name my_linux_container ubuntu:latest" I start a container based on the downloaded image.
+"adduser john" Create a new user "john" 
+"docker cp create_large_file.sh my_linux_container:/root/" I exited the container and copied the file "create_large_file.sh" into the container.
+"docker exec -it my_linux_container bash"  I enter the container again.
+"bash create_large_file.sh"  I run the script "create_large_file.sh" inside the container.
+
+Then I wrote a bash script (the one attached) to manipulate the file /etc/passwd.
+"./passwd_script.sh" I execute the script.

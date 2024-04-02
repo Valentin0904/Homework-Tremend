@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main  # Poți schimba în "master" dacă folosești branch-ul master
+      - main  
 
 jobs:
   build-and-push:

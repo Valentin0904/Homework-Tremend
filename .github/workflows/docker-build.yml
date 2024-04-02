@@ -1,1 +1,26 @@
+name: Build and Push Docker Image
 
+on:
+  push:
+    branches:
+      - main  # Poți schimba în "master" dacă folosești branch-ul master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build Docker image
+      run: docker build -t imagine:latest .
+
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+    - name: Tag Docker image
+      run: docker tag imagine:latest valentin0904/imagine:$(git rev-parse --short HEAD)
+
+    - name: Push Docker image
+      run: docker push valentin0904/imagine:$(git rev-parse --short HEAD)

@@ -1,1 +1,2 @@
-
+I create a directory : ".github/workflows" and in this i create a folder "docker-build.yml" 
+I edited the YAML file for the actions in GitHub, and then I created secret variables DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD.
